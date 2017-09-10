@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/colorAccent"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+    
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:id="@+id/add_fsv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:floatingSearch_searchBarMarginLeft="0dp"
+        app:floatingSearch_searchBarMarginTop="0dp"
+        app:floatingSearch_searchBarMarginRight="0dp"
+        app:floatingSearch_searchHint="搜索..."
+        app:floatingSearch_suggestionsListAnimDuration="250"
+        app:floatingSearch_showSearchKey="false"
+        app:floatingSearch_leftActionMode="showHome"
+        app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
+    
+</LinearLayout>
+
