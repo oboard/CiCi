@@ -25,19 +25,21 @@ import java.util.List;
 import java.util.Map;
 import org.apache.http.util.ByteArrayBuffer;
 import org.apache.http.util.EncodingUtils;
-import org.w3c.dom.Element;
 import org.apache.http.util.ByteArrayBuffer;
 import org.apache.http.util.EncodingUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import android.graphics.Color;
+import android.view.Gravity;
 
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     ViewPager viewPager;
     FloatingActionButton fab;
+    static TextView t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,66 +71,17 @@ public class MainActivity extends AppCompatActivity {
         TextView v1 = new TextView(this);
         v1.setBackgroundColor(0xFFFFFFFF);
         TextView v2 = new TextView(this);
+        t = v1;
+        t.setText("bai");
+        t.setTextSize(50);
+        t.setTextColor(Color.BLACK);
+        t.setGravity(Gravity.CENTER);
         v2.setBackgroundColor(0xFF55FFFF);
         l.add(v1);
         l.add(v2);
         viewPager.setAdapter(new MyViewPagerAdapter(l));
     }
     
-    
-
-    protected void load() {
-        try {
-            doc = Jsoup.parse(new URL("http://www.cnbeta.com"), 5000);
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-        Elements es = doc.getElementsByClass("main_navi");
-        for (Element e : es) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("title", e.getElementsByTag("a").text());
-            map.put("href", "http://www.cnbeta.com"
-                    + e.getElementsByTag("a").attr("href"));
-            list.add(map);
-        }
-
-        ListView listView = (ListView) findViewById(R.id.listView1);
-        listView.setAdapter(new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,
-                                              new String[] { "title","href" }, new int[] {
-                                                  android.R.id.text1,android.R.id.text2
-                                              }));
-    }
-
-    public String getHtmlString(String urlString) {
-        try {
-            URL url = null;
-            url = new URL(urlString);
-
-            URLConnection ucon = null;
-            ucon = url.openConnection();
-
-            InputStream instr = null;
-            instr = ucon.getInputStream();
-
-            BufferedInputStream bis = new BufferedInputStream(instr);
-
-            ByteArrayBuffer baf = new ByteArrayBuffer(500);
-            int current = 0;
-            while ((current = bis.read()) != -1) {
-                baf.append((byte) current);
-            }
-            return EncodingUtils.getString(baf.toByteArray(), "gbk");
-        } catch (Exception e) {
-            return "";
-        }
-	}
-    
-    
-
     public class MyViewPagerAdapter extends PagerAdapter { 
 
         private ArrayList<View> mListViews;  
